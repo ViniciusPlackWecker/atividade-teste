@@ -4,13 +4,18 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
         cy.wait(3000); // Aguarda 3 segundos ou até o carregamento completo
         // Verifique se o Bootstrap foi carregado verificando o elemento que depende do Bootstrap
         cy.window().then((window) => {
-            // Verifica se o jQuery foi carregado
+            // Verifique se o Bootstrap foi carregado corretamente
+            expect(window.bootstrap).to.not.be.undefined;
+        });
+
+        // Verifica se o jQuery foi carregado
+        cy.window().then((window) => {
             expect(window.$).to.not.be.undefined;
         });
 
         // Verifica se a classe 'img-fluid' foi aplicada em uma imagem
         cy.get('img').first().should('have.class', 'img-fluid');
-        
+
         cy.get('span')
             .contains('My Account')
             .should('exist')
