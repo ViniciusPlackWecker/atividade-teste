@@ -2,7 +2,10 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
     beforeEach(() => {
         cy.visit('');
         cy.wait(3000); // Aguarda 3 segundos ou até o carregamento completo
-        cy.get('body').should('be.visible'); // Garante que o corpo da página esteja carregado
+        cy.window().then((window) => {
+            // Verifique se o Bootstrap está carregado no contexto da janela
+            expect(window.bootstrap).to.not.be.undefined;
+        });
         cy.get('span')
             .contains('My Account')
             .should('exist')
