@@ -18,14 +18,17 @@ jobs:
         with:
           node-version: '18'
 
+      - name: Install yarn
+        run: npm install -g yarn
+
       - name: Install dependencies
-        run: npm install
+        run: yarn install --dev
 
       - name: Cache Cypress binary
         uses: actions/cache@v3
         with:
           path: ~/.cache/Cypress
-          key: ${{ runner.os }}-cypress-${{ hashFiles('package-lock.json') }}
+          key: ${{ runner.os }}-cypress-${{ hashFiles('yarn.json') }}
           restore-keys: |
             ${{ runner.os }}-cypress-
       - name: Give Cypress executable permissions
