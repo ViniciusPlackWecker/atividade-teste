@@ -1,6 +1,11 @@
 describe('Testes no módulo de Produtos do Demo.Opencart', () => {
     beforeEach(() => {
         cy.visit('');
+        cy.window().then((win) => {
+            // Remover o carregamento do Bootstrap
+            const bootstrapScript = win.document.querySelector('script[src*="bootstrap"]');
+            if (bootstrapScript) bootstrapScript.remove();
+          });
         cy.get('span')
             .contains('My Account')
             .should('exist')
