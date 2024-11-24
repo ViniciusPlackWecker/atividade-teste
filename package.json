@@ -1,0 +1,9 @@
+{
+  "name": "prestashop-tests",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^13.16.0"
+  }
+}
