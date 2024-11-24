@@ -38,7 +38,7 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
     })
 
 
-    it('Adicionar e remover produtos do carrinho', () => {
+    it('Teste 1: Adicionar e remover produtos do carrinho', () => {
         cy.get('a[href="https://demo.opencart.com/en-gb/catalog/desktops"]')
             .should('exist')
             .should('be.visible')
@@ -81,7 +81,7 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
         cy.wait(10000);
     })
 
-    it('Realizar uma compra do carrinho', () => {
+    it('Teste 2:Realizar uma compra do carrinho', () => {
         cy.get('a[href="https://demo.opencart.com/en-gb/catalog/desktops"]')
             .should('exist')
             .should('be.visible')
@@ -142,7 +142,7 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
         cy.get('h1').should('contain', 'Your order has been placed!');
     })
 
-    it('Realizar a comparação de dois produtos', () => {
+    it('Teste 3: Realizar a comparação de dois produtos', () => {
 
         let productNames = [];
         let compareProductNames = [];
@@ -198,7 +198,7 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
         });
     })
 
-    it('Adicionar produto a lista de desejos', () => {
+    it('Teste 4: Adicionar produto a lista de desejos', () => {
 
         let productNames = [];
         let compareProductNames = [];
@@ -237,7 +237,7 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
         });
     })
 
-    it('Comprar produto a partir da lista de desejos', () => {
+    it('Teste 5: Comprar produto a partir da lista de desejos', () => {
 
         let productNames = [];
         let compareProductNames = [];
@@ -327,4 +327,40 @@ describe('Testes no módulo de Produtos do Demo.Opencart', () => {
 
         cy.get('h1').should('contain', 'Your order has been placed!');
     })
+
+    it('Teste 12: Emitir Cartão de presente', () => {
+
+        cy.get('footer a[href="https://demo.opencart.com/en-gb?route=checkout/voucher"]').should('exist').should('be.visible').click();
+
+        cy.wait(2000);
+        cy.get('#content form').find('div').eq(1).within(() => {
+            cy.get('#input-to-name').should('exist').should('be.visible').clear().type('new recipient name');
+        });
+
+        cy.wait(2000);
+        cy.get('#content form').find('div').eq(3).within(() => {
+            cy.get('#input-to-email').should('exist').should('be.visible').clear().type('newrecipient@email.com');
+        });
+
+        cy.wait(2000);
+        cy.get('#content form').within(() => {
+            cy.get('#input-theme-7').should('exist').should('be.visible').check();
+        });
+
+        cy.wait(2000);
+        cy.get('#content form').within(() => {
+            cy.get('#input-message').should('exist').should('be.visible').clear().type('new message for the certificate');
+        });
+        
+        cy.wait(2000);
+        cy.get('#content form').within(() => {
+            cy.get('input[type="checkbox"][name="agree"]').should('exist').should('be.visible').check();
+        });
+
+        cy.get('#content button').should('exist').should('be.visible').click();
+
+        cy.wait(2000);
+        cy.get('#content').should('exist').should('be.visible').should('contain', '   Thank you for purchasing a gift certificate! Once you have completed your order your gift certificate recipient will be sent an e-mail with details how to redeem their gift certificate.')
+    });
+
 })
