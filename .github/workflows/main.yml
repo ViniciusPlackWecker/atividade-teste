@@ -39,4 +39,4 @@ jobs:
         run: npx cypress install  # Ensure the Cypress binary is downloaded
 
       - name: Run Cypress Tests
-        run: npx cypress run
+        run: npx cypress run --browser chrome
